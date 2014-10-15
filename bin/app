@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+$: << File.join(File.dirname(__FILE__), "/../lib")
+require 'gli'
+require 'n_prime'
+ 
+include GLI::App
+ 
+program_desc 'NPrime Numbers'
+
+desc 'List the multiplication of the first n prime numbers'
+long_desc 'List the multiplication of the first n prime numbers'
+
+command :multi do |c|
+  c.action do |global_options,options,args|
+    help_now!('n is required') if args.empty?
+    n = args.shift.to_i
+    (NPrime.multi n).each do |prime|
+       p prime * ' | '
+    end
+  end
+end
+
+exit run(ARGV)
